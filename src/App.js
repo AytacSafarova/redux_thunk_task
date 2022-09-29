@@ -1,24 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import { CustomersList } from './pages/customersPage';
+import AddCustomer from "./pages/addcustomersPage"
+import "./App.css";
+import { Provider } from "react-redux";
+import { Routes, Link, Route } from "react-router-dom";
+import { HomePage } from './pages/homePage';
+import thunk from 'redux-thunk';
+import { applyMiddleware, createStore } from "redux";
+import { Reducer } from './redux/reducer';
+const store = createStore(Reducer, applyMiddleware(thunk));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store} >
+      <HomePage />
+      <Routes>
+        <Route path="/customers" element={<CustomersList />} />
+        <Route path="/addcustomer" element={<AddCustomer />} />
+      </Routes>
+    </Provider>
+ 
   );
 }
 
